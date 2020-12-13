@@ -13,7 +13,7 @@ const { check, validationResult } = require("express-validator");
 router.post(
   "/",
   [
-    check("name", "Nameis Required")
+    check("name", "Name is Required")
       .not()
       .isEmpty(),
 
@@ -29,8 +29,11 @@ router.post(
     }
 
     const { name, email, password } = req.body;
+
+    console.log("hjhjhfhdjlhilhlshfld")
     try {
       //User already exist
+
       let user = await User.findOne({ email });
       if (user) {
         return res
