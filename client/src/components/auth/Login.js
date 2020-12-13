@@ -1,42 +1,26 @@
 import React, { Fragment, useState } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import { login } from "../../actions/loginAction";
 
-function Login() {
-  const { loginData, setLoginData } = useState({
+function Login({ login }) {
+  const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
-  let { email, password } = loginData;
+  const { email, password } = formData;
 
   const onChange = (e) =>
-    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("sdsdsdsdsdsds", email, password);
     const newUser = {
       email,
       password
     };
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-
-      const body = JSON.stringify(newUser);
-
-      const res = await axios.post(
-        "http://localhost:5000/api/users",
-        config,
-        body
-      );
-      console.log(res.data);
-    } catch (error) {
-      console.log(error.message);
-    }
+    login(newUser);
   };
 
   return (
@@ -72,4 +56,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default connect(null, { login })(Login);

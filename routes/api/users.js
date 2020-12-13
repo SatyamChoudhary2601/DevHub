@@ -30,7 +30,6 @@ router.post(
 
     const { name, email, password } = req.body;
 
-    console.log("hjhjhfhdjlhilhlshfld")
     try {
       //User already exist
 
@@ -72,7 +71,7 @@ router.post(
         { expiresIn: 36000000 },
         (error, token) => {
           if (error) throw error;
-          res.json({ token, user });
+          res.json({ token });
         }
       );
     } catch (err) {
