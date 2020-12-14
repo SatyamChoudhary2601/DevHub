@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN_SUCCESS, LOGIN_FAIL } from "./types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "./types";
 
 //Login User
 
@@ -24,3 +24,4 @@ export const login = ({ email, password }) => async (dispatch) => {
     });
   }
 };
+
