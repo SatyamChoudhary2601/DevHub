@@ -16,7 +16,7 @@ const initialState = {
   user: null
 };
 
-export default function(state = initialState, action) {
+const registerReducers = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case USER_LOADED:
@@ -33,12 +33,12 @@ export default function(state = initialState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
+        
       };
     case AUTH_ERROR:
     case REGISTER_FAIL:
     case LOGIN_FAIL:
-    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,
@@ -47,7 +47,19 @@ export default function(state = initialState, action) {
         isLoading: false,
         errors: payload
       };
+    case LOGOUT:
+      localStorage.removeItem("token");
+
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
+        errors: null
+      };
     default:
       return state;
   }
-}
+};
+export default registerReducers;

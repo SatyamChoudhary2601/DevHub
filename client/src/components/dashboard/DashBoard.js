@@ -1,13 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileAction";
+import Spinner from "../layout/spinner";
 
-const DashBoard = ({ auth, profile, getCurrentProfile }) => {
+const DashBoard = ({
+  getCurrentProfile,
+  auth: { user },
+  profile: { isLoading, profile }
+}) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, []);
-  return <div>DashBoard</div>;
+    setTimeout(() => {
+      getCurrentProfile();
+      
+    }, 2000);
+  }, [getCurrentProfile]);
+
+  return isLoading && profile === null ? (
+    <Spinner />
+  ) : (
+    <Fragment>
+      <h1 className="large text-primary">Dashboard</h1>
+      <p className="lead">
+        <i className="fas fa-user"></i> Welcome {user && user.name}
+      </p>
+    </Fragment>
+  );
 };
 
 DashBoard.propTypes = {
